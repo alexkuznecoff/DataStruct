@@ -72,7 +72,7 @@ namespace DataStruct.Lib
                     Node tempCurrent = current.Next;
                     current.Data = null;
                     current = tempCurrent;
-                    
+
                 }
 
             }
@@ -100,12 +100,15 @@ namespace DataStruct.Lib
         {
             object[] array = new object[Count];
             Node current = First;
+            int index = 0;
 
-            for (int i = 0; i < Count; i++)
+            while (current != null)
             {
-                array[i] = current.Data;
+                array[index] = current.Data;
+                index++;
                 current = current.Next;
             }
+
             return array;
         }
 
@@ -114,11 +117,11 @@ namespace DataStruct.Lib
             Node current = First;
             Node previous = null;
 
-            while(current !=null)
+            while (current != null)
             {
-                if(current.Data == data)
+                if (current.Data == data)
                 {
-                    if(previous != null)
+                    if (previous != null)
                     {
                         previous.Next = current.Next;
 
@@ -140,6 +143,15 @@ namespace DataStruct.Lib
             }
             return false;
         }
+
+        public void RemoveFirst()
+        {
+            var tmp = First.Next;
+            First = null;
+            Node newFirst = tmp;
+            First = newFirst;
+        }
+
     }
 
     public class Node

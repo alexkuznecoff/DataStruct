@@ -80,12 +80,16 @@ namespace DataStruct.Lib
             _index++;
         }
 
-        public object this[int key]
+        public object this[int index]
         {
             get
             {
-                return _array[key];
+                return _array[index];
 
+            }
+            set
+            {
+                _array[index] = value;
             }
         }
 
