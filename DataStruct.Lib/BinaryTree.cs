@@ -72,7 +72,7 @@ namespace DataStruct.Lib
         public bool Contains(IComparable data)
         {
             return ContainsInternal(data, Root);
-            
+
         }
 
         private bool ContainsInternal(IComparable data, TreeNode root)
@@ -80,12 +80,12 @@ namespace DataStruct.Lib
             var compareResult = root.Data.CompareTo(data);
             if (compareResult == 0)
                 return true;
-            else if(compareResult > 0)
+            else if (compareResult > 0)
             {
                 //Left
                 if (root.Left == null)
                     return false;
-               return ContainsInternal(data, root.Left);
+                return ContainsInternal(data, root.Left);
             }
             else
             {
@@ -98,9 +98,23 @@ namespace DataStruct.Lib
 
         }
 
-        //public ICloneable[]ToArray()
-        //{
+        public object[] ToArray()
+        {
+            List list = new List();
+            ToArrayInner(list, Root);
+
+            return list.ToArray();
+        }
+
+        private void ToArrayInner(List list, TreeNode root)
+        {
+            if (root.Left != null)
+                ToArrayInner(list, root.Left);
+            list.Add(root.Data);
+            if (root.Right != null)
+                ToArrayInner(list, root.Right);
             
-        //}
+
+        }
     }
 }

@@ -45,5 +45,27 @@ namespace UnitTestDataStruct
             Assert.IsFalse(binaryTree.Contains(1000));
             Assert.IsFalse(binaryTree.Contains(-80));
         }
+
+        [TestMethod]
+        public void ToArrayTest()
+        {
+            int[] testArray = { 5, 4, 2, 8, 7, 10 };
+            BinaryTree binaryTree = new BinaryTree();
+
+            for (int i = 0; i < testArray.Length; i++)
+            {
+                binaryTree.Add(testArray[i]);
+            }
+
+            object[] expected = { 2, 4, 5, 7, 8, 10 };
+            var result = binaryTree.ToArray();
+
+            Assert.AreEqual(expected.Length, result.Length);
+
+            for (int i = 0; i < result.Length; i++)
+            {
+                Assert.AreEqual(expected[i], result[i]);
+            }
+        }
     }
 }
