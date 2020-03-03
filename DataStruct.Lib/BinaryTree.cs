@@ -7,35 +7,35 @@ using System.Threading.Tasks;
 
 namespace DataStruct.Lib
 {
-    public sealed class TreeNode
+    public sealed class TreeNode<T> where T : IComparable
     {
-        public TreeNode Left { get; set; }
-        public TreeNode Right { get; set; }
+        public TreeNode<T> Left { get; set; }
+        public TreeNode<T> Right { get; set; }
 
-        public IComparable Data { get; private set; }
+        public T Data { get; private set; }
 
-        public TreeNode(IComparable data)
+        public TreeNode(T data)
         {
             Data = data;
         }
 
     }
 
-    public class BinaryTree
+    public class BinaryTree<T> where T : IComparable
     {
         public int Count { get; set; }
 
-        public TreeNode Root { get; private set; }
+        public TreeNode<T> Root { get; private set; }
 
         public BinaryTree()
         {
             Count = 0;
         }
 
-        public void Add(IComparable data)
+        public void Add(T data)
         {
             if (Root == null)
-                Root = new TreeNode(data);
+                Root = new TreeNode<T>(data);
             else
                 InternalAdd(data, Root);
 
@@ -43,13 +43,13 @@ namespace DataStruct.Lib
 
         }
 
-        private void InternalAdd(IComparable data, TreeNode node)
+        private void InternalAdd(T data, TreeNode<T> node)
         {
             if (node.Data.CompareTo(data) > 0)
             {
                 //Left
                 if (node.Left == null)
-                    node.Left = new TreeNode(data);
+                    node.Left = new TreeNode<T>(data);
                 else
                     InternalAdd(data, node.Left);
             }
@@ -57,7 +57,7 @@ namespace DataStruct.Lib
             {
                 // Right
                 if (node.Right == null)
-                    node.Right = new TreeNode(data);
+                    node.Right = new TreeNode<T>(data);
                 else
                     InternalAdd(data, node.Right);
             }
@@ -69,13 +69,13 @@ namespace DataStruct.Lib
             Count = 0;
         }
 
-        public bool Contains(IComparable data)
+        public bool Contains(T data)
         {
             return ContainsInternal(data, Root);
 
         }
 
-        private bool ContainsInternal(IComparable data, TreeNode root)
+        private bool ContainsInternal(T data, TreeNode<T> root)
         {
             var compareResult = root.Data.CompareTo(data);
             if (compareResult == 0)
@@ -98,17 +98,17 @@ namespace DataStruct.Lib
 
         }
 
-        public object[] ToArray()
+        public T[] ToArray()
         {
-            List list = new List();
+            List<T> list = new List<T>();
             ToArrayInner(list, Root);
 
             return list.ToArray();
         }
 
-        private void ToArrayInner(List list, TreeNode root)
+        private void ToArrayInner(List<T> list, TreeNode<T> root)
         {
-            if (root.Left != null)
+            if (root.Left != null)  
                 ToArrayInner(list, root.Left);
             list.Add(root.Data);
             if (root.Right != null)

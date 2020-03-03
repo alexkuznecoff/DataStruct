@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace DataStruct.Lib
 {
-    class Queue
+    class Queue<T>
     {
-        private LinkedList _linkedList = new LinkedList();
+        private LinkedList<T> _linkedList = new LinkedList<T>();
 
-        public Node First  { get; set; }
+        public Node<T> First  { get; set; }
 
-        public Node Last { get; set; }
+        public Node<T> Last { get; set; }
 
         public int Count { get => _linkedList.Count; }
         
         /// <summary>
         /// Put / Add
         /// </summary>
-        public void Enqueue(object data)
+        public void Enqueue(T data)
         {
             _linkedList.Add(data);
         }
@@ -36,11 +36,11 @@ namespace DataStruct.Lib
 
         public void Clear() => _linkedList.Clear();
 
-        public bool Contains(object data) => _linkedList.Contains(data);
+        public bool Contains(T data) => _linkedList.Contains(data);
 
         public object Peek() => _linkedList.Last.Data;
 
-        public object[] ToArray() => _linkedList.ToArray();
+        public T[] ToArray() => _linkedList.ToArray();
      
     }
 

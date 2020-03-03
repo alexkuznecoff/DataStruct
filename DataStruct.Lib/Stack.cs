@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace DataStruct.Lib
 {
-    class Stack
+    class Stack<T>
     {
-        private LinkedList _linkedList;
+        private LinkedList<T> _linkedList;
 
         public int Count { get => _linkedList.Count; }
 
         public Stack()
         {
-            _linkedList = new LinkedList();
+            _linkedList = new LinkedList<T>();
         }
 
-        public void Push(object data) => _linkedList.AddFirst(data);
+        public void Push(T data) => _linkedList.AddFirst(data);
 
         public object Pull()
         {
@@ -30,9 +30,9 @@ namespace DataStruct.Lib
 
         public object Peek() => _linkedList.First.Data;
 
-        public bool Contains(object data) => _linkedList.Contains(data);
+        public bool Contains(T data) => _linkedList.Contains(data);
 
-        public object[] ToArray() => _linkedList.ToArray();
+        public T[] ToArray() => _linkedList.ToArray();
 
     }
 }

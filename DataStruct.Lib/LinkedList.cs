@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace DataStruct.Lib
 {
-    public class LinkedList
+    public class LinkedList<T> : IEnumerable<T>
     {
         public int Count { get; set; }
-        public Node First { get; set; }
-        public Node Last { get; set; }
+        public Node<T> First { get; set; }
+        public Node<T> Last { get; set; }
 
-        public void Add(object data)
+        public void Add(T data)
         {
-            Node node = new Node(data);
+            Node<T> node = new Node<T>(data);
             if (First == null)
             {
                 First = node;
@@ -28,9 +29,9 @@ namespace DataStruct.Lib
             Count++;
         }
 
-        public void AddFirst(object data)
+        public void AddFirst(T data)
         {
-            Node node = new Node(data);
+            Node<T> node = new Node<T>(data);
 
             if (First == null)
             {
@@ -42,14 +43,14 @@ namespace DataStruct.Lib
             Count++;
         }
 
-        public void Insert(Node node, object data)
+        public void Insert(Node<T> node, T data)
         {
             var currentNode = First;
 
             do
             {
                 if (currentNode == node
-                    && data is Node newNode)
+                    && data is Node<T> newNode)
                 {
                     newNode.Next = currentNode.Next;
                     currentNode.Next = newNode.Next;
@@ -63,14 +64,14 @@ namespace DataStruct.Lib
 
         public void Clear()
         {
-            Node current = First;
+            Node<T> current = First;
             Count = 0;
             do
             {
                 if (current.Next != null)
                 {
-                    Node tempCurrent = current.Next;
-                    current.Data = null;
+                    Node<T> tempCurrent = current.Next;
+                    current.Next = null;
                     current = tempCurrent;
 
                 }
@@ -82,13 +83,13 @@ namespace DataStruct.Lib
 
         }
 
-        public bool Contains(object data)
+        public bool Contains(T data)
         {
-            Node current = First;
+            Node<T> current = First;
 
             while (current != null)
             {
-                if (current.Data == data)
+                if (current.Data.Equals(data))
                     return true;
 
                 current = current.Next;
@@ -96,10 +97,10 @@ namespace DataStruct.Lib
             return false;
         }
 
-        public object[] ToArray()
+        public T[] ToArray()
         {
-            object[] array = new object[Count];
-            Node current = First;
+            T[] array = new T[Count];
+            Node<T> current = First;
             int index = 0;
 
             while (current != null)
@@ -112,14 +113,14 @@ namespace DataStruct.Lib
             return array;
         }
 
-        public bool Remove(object data)
+        public bool Remove(T data)
         {
-            Node current = First;
-            Node previous = null;
+            Node<T> current = First;
+            Node<T> previous = null;
 
             while (current != null)
             {
-                if (current.Data == data)
+                if (current.Data.Equals(data))
                 {
                     if (previous != null)
                     {
@@ -148,18 +149,30 @@ namespace DataStruct.Lib
         {
             var tmp = First.Next;
             First = null;
-            Node newFirst = tmp;
+            Node<T> newFirst = tmp;
             First = newFirst;
         }
 
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (Node<T> current = First; current != null; current = current.Next)
+            {
+                yield return current.Data;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 
-    public class Node
+    public class Node<T>
     {
-        public Node Next { get; set; }
-        public object Data { get; set; }
+        public Node<T> Next { get; set; }
+        public T Data { get; set; }
 
-        public Node(object data)
+        public Node(T data)
         {
             Data = data;
         }

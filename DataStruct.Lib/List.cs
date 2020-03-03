@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace DataStruct.Lib
 {
-    public class List
+    public class List<T>
     {
 
         private int _index;
         private int _capasity = 4;
-        private object[] _array;
+        private T[] _array;
 
         public int Count
         {
@@ -34,7 +34,7 @@ namespace DataStruct.Lib
 
         private void InitArray()
         {
-            _array = new object[_capasity];
+            _array = new T[_capasity];
         }
 
         /// <summary>
@@ -42,8 +42,8 @@ namespace DataStruct.Lib
         /// </summary>
         private void ReSize()
         {
-            object[] tempArr = _array;
-            _array = new object[_capasity];
+            T[] tempArr = _array;
+            _array = new T[_capasity];
 
             if (tempArr != null)
             {
@@ -68,7 +68,7 @@ namespace DataStruct.Lib
         /// add new obj to array
         /// </summary>
         /// <param name="item">new obj to array</param>
-        public void Add(object item)
+        public void Add(T item)
         {
             if (_index == _capasity)
             {
@@ -80,7 +80,7 @@ namespace DataStruct.Lib
             _index++;
         }
 
-        public object this[int index]
+        public T this[int index]
         {
             get
             {
@@ -93,9 +93,9 @@ namespace DataStruct.Lib
             }
         }
 
-        public void Insert(int index, object item)
+        public void Insert(int index, T item)
         {
-            object[] tempArray = new object[_array.Length + 1];
+            T[] tempArray = new T[_array.Length + 1];
 
             for (int i = 0; i < index; i++)
             {
@@ -117,11 +117,11 @@ namespace DataStruct.Lib
             index++;
         }
 
-        public int IndexOf(object item)
+        public int IndexOf(T item)
         {
             for (int i = 0; i < _array.Length; i++)
             {
-                if (item == _array[i])
+                if (_array[i].Equals(item))
                     return i;
             }
 
@@ -148,7 +148,7 @@ namespace DataStruct.Lib
         /// Removal by elyment
         /// </summary>
         /// <param name="item">Removal by elyment</param>
-        public void Remove(object item)
+        public void Remove(T item)
         {
             int index = IndexOf(item);
 
@@ -161,11 +161,11 @@ namespace DataStruct.Lib
             InitArray();
         }
 
-        public bool Contains(object item)
+        public bool Contains(T item)
         {
             for (int i = 0; i < _array.Length; i++)
             {
-                if (item == _array[i])
+                if (_array[i].Equals(item))
                 {
                     return true;
                 }
@@ -180,15 +180,15 @@ namespace DataStruct.Lib
 
             for (int i = 0; i < Count / 2; i++)
             {
-                object temp = _array[i];
+                T temp = _array[i];
                 _array[i] = _array[end - i];
                 _array[end - i] = temp;
             }
         }
 
-        public object[] ToArray()
+        public T[] ToArray()
         {
-            object[] result = new object[Count];
+            T[] result = new T[Count];
 
             for (int i = 0; i < Count; i++)
             {

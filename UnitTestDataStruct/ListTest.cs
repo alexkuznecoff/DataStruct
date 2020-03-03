@@ -10,7 +10,7 @@ namespace UnitTestDataStruct
         [TestMethod]
         public void AddTest()
         {
-            List list = new List();
+            var list = new List<int>();
             Assert.AreEqual(0, list.Count);
 
             list.Add(223);
@@ -27,7 +27,7 @@ namespace UnitTestDataStruct
         public void Test_ToArray()
         {
             object[] expected = { 1, 2, 3, 4, 5 };
-            List list = new List();
+            var list = new List<int>();
 
             for (int i = 0; i < expected.Length; i++)
             {
