@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataStruct.Lib
 {
-    public class LinkedList<T> : IEnumerable<T>
+    public class LinkedList<T> : ICollectionsDataStruct<T>, IEnumerable<T>
     {
         public int Count { get; set; }
         public Node<T> First { get; set; }
@@ -164,6 +164,11 @@ namespace DataStruct.Lib
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        void ICollectionsDataStruct<T>.Remove(T item)
+        {
+            throw new NotImplementedException();
         }
     }
 

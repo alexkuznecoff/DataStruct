@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataStruct.Lib
 {
-    public class List<T>
+    public class List<T> : ICollectionsDataStruct<T>,IEnumerable<T>
     {
 
         private int _index;
@@ -197,5 +198,19 @@ namespace DataStruct.Lib
             return result;
         }
 
+        public void Reset() => _index = -1;
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                yield return _array[i];
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

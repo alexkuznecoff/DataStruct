@@ -17,7 +17,7 @@ namespace DataStruct.Lib
             _linkedList = new LinkedList<T>();
         }
 
-        public void Push(T data) => _linkedList.AddFirst(data);
+        public void Push(T data) => _linkedList.AddFirst(data);  
 
         public object Pull()
         {
